@@ -1,0 +1,94 @@
+
+version: v1
+title: API de Usuarios
+baseUri: http://localhost/api_utal_v1/
+
+# Descripción breve de la API
+description: |
+  Esta API permite gestionar usuarios, incluyendo operaciones CRUD
+
+
+# Endpoint
+/list:
+  # Obtener la lista de usuarios
+  get:
+    description: |
+      Obtiene la lista de todos los usuarios registrados.
+    responses:
+      200:
+        description: Lista de usuarios obtenida exitosamente.
+        body:
+          application/json:
+            type: Usuario[]
+
+# Endpoint
+/new:  
+  # Crear un nuevo usuario
+  post:
+    description: |
+      Crea un nuevo usuario con la información proporcionada.
+    body:
+      application/json:
+        type: Usuario
+    responses:
+      201:
+        description: Usuario creado exitosamente.
+      400:
+        description: Datos inválidos.
+
+# Endpoint
+/me/{id}:
+  # Obtener un usuario específico
+  get:
+    description: |
+      Obtiene los detalles de un usuario por su ID.
+    parameters:
+      - name: id
+        type: integer
+        required: true
+    responses:
+      200:
+        description: Usuario encontrado.
+        body:
+          application/json:
+            type: Usuario
+      404:
+        description: Usuario no encontrado.
+
+# Endpoint
+/delete/{id}: 
+  # Eliminar un usuario específico
+  delete:
+    description: |
+      Elimina un usuario por su ID.
+    parameters:
+      - name: id
+        type: integer
+        required: true
+    responses:
+      204:
+        description: Usuario eliminado exitosamente.
+      404:
+        description: Usuario no encontrado.
+
+# Endpoint
+/login:
+  # Logea a un usuario
+  get:
+    description: |
+      Logea a un usuario con correo y password
+    parameters:
+      - name: correo
+        type: text
+        required: true
+      - name: password
+        type: password
+        required: true  
+    responses:
+      200:
+        description: Inicia sesión.
+        body:
+          application/json:
+            type: Usuario
+      404:
+        description: Credenciales Inválidas.
